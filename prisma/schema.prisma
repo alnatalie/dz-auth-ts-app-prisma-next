@@ -13,25 +13,54 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// неправильно в пользователе хранить id заказа
-// у одного заказа - один владелец
-// но у одного пользователя может быть несколько заказов
+model Material {
+  id           Int        @id @default(autoincrement())
+  typeMaterial String
+  Products     Products[]
+}
+
+model Sizes {
+  id           Int            @id @default(autoincrement())
+  value        String
+  ProductSizes ProductSizes[]
+}
+
+model ProductSizes {
+  id        Int      @id @default(autoincrement())
+  productId Int
+  Product   Products @relation(fields: [productId], references: [id])
+  sizeId    Int
+  Size      Sizes    @relation(fields: [sizeId], references: [id])
+}
+
+model Types {
+  id       Int        @id @default(autoincrement())
+  typeName String
+  Products Products[]
+}
 
 model Products {
-  id   Int    @id @default(autoincrement())
-  name String
-
+  id               Int                @id @default(autoincrement())
+  name             String
+  typeId           Int
+  Type             Types              @relation(fields: [typeId], references: [id])
+  materialId       Int
+  Material         Material           @relation(fields: [materialId], references: [id])
   ProductsInBusket ProductsInBusket[]
+  price            String
+  OrderItems       OrderItems[]
+  ProductSizes ProductSizes[]
 }
 
 model Buyers {
-  id     Int      @id @default(autoincrement())
-  name   String
-  email  String
-  phone  Int
-  adress String
-  price  Int
-  Busket Busket[]
+  id      Int      @id @default(autoincrement())
+  name    String
+  email   String
+  phone   Int
+  address String
+  price   Int
+  Busket  Busket[]
+  Order   Orders[]
 }
 
 model ProductsInBusket {
@@ -44,21 +73,30 @@ model ProductsInBusket {
 }
 
 model Busket {
-  id     Int     @id @default(autoincrement())
-  byerId Int
-  Buyer  Buyers  @relation(fields: [byerId], references: [id])
-  open   Boolean
-
+  id               Int                @id @default(autoincrement())
+  byerId           Int
+  Buyer            Buyers             @relation(fields: [byerId], references: [id])
+  open             Boolean
   ProductsInBusket ProductsInBusket[]
 }
 
-// model Orders {
-//   id Int @id @default(autoincrement())
-//   date DateTime
-//   productName String
-//   typeJewelry Int
-//   orderNumber Buyers[]
-// }
+model Orders {
+  id          Int          @id @default(autoincrement())
+  byerId      Int
+  Buyer       Buyers       @relation(fields: [byerId], references: [id])
+  date        DateTime
+  totalAmount String
+  OrderItems  OrderItems[]
+}
+
+model OrderItems {
+  id        Int      @id @default(autoincrement())
+  orderId   Int
+  OrderId   Orders   @relation(fields: [orderId], references: [id])
+  productId Int
+  ProductId Products @relation(fields: [productId], references: [id])
+  price     String
+}
 
 // -----------------------------------------------------------------------------------
 

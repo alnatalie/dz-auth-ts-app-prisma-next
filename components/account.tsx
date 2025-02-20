@@ -9,7 +9,7 @@ export async function Account() {
                 // const {user} = session;
               <>
                 Signed in as {session.user?.name} ({session.user?.email}) <br />
-                {session.user?.image && <img src={session.user.image} style={{width:'50px',borderRadius:'50%'}}/>}<br />
+                {session.user?.image && <img src={session.user.image} style={{width:'100px',borderRadius:'50%'}}/>}<br />
                 <SignOut/>
               </>
             )

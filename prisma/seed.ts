@@ -1,30 +1,34 @@
 
-import { type User, PrismaClient } from "@prisma/client";
+import { type User, Busket, Buyers, PrismaClient } from "@prisma/client";
+
+
 const prisma = new PrismaClient();
 
-// async function createOrders(){
-//     const data:OrderNumber[] = [
-//         {id: 1, date:new Date , productName:'Кольцо серебрянное с фианитом', typeJewelry:1},
-//         {id: 2, date:new Date , productName:'Ожерелье серебянное', typeJewelry:2} 
-//     ]
-//     return await prisma.orderNumber.createMany({
-//         data
-//     });
-   
-   
-// }
 
-// async function createByuers(){
-//     const data: Buyers[] = [
-//         {id:1, name: 'Анастасия', email: 'nastya111@mail.ru', phone:89135473219,adress:'', price:1990, orderNumberId:1 },
-//         {id:2, name: 'Мария', email: 'mary.ivanova@mail.ru', phone:89995893410,adress:'', price:7840, orderNumberId:2 },
+
+async function createBusket(){
+    const data:Busket[] = [
+        {id: 1, byerId: 1, open: false },
+        {id: 2, byerId: 2, open: false} 
+    ]
+    return await prisma.busket.createMany({
+        data
+    });
+   
+   
+}
+
+async function createByuers(){
+    const data: Buyers[] = [
+        {id:1, name: 'Анастасия', email: 'nastya111@mail.ru', phone:89135473219,address:'', price:1990,  },
+        {id:2, name: 'Мария', email: 'mary.ivanova@mail.ru', phone:89995893410,address:'', price:7840,  },
          
-//     ]
-//     return await prisma.buyers.createMany({
-//         data
-//     });
+    ]
+    return await prisma.buyers.createMany({
+        data
+    });
   
-// }
+}
 
 async function createUsers(){
     const data: User[] = [
@@ -42,8 +46,12 @@ async function createUsers(){
 async function main() {
     try {
         const 
-            // orders = await createOrders(),
-            // byers = await createByuers(),
+            byers = await createByuers(),
+            busket = await createBusket(),
+            // productsInBusket = await createProductsInBusket(),
+            // products = await createProducts(),
+            // types = await createTypes(),
+            // material = await createMaterial(),
             users = await createUsers();
         // console.log({orders, byers, users});
         
