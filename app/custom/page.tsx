@@ -31,7 +31,7 @@ export default function Page1(){
             
 // }
 
-// export function SignIn() {
+// function SignIn() {
 //     return (
 //       <>
 //         <form
@@ -46,7 +46,7 @@ export default function Page1(){
 //     );
 //   }
 
-// export function SignOut(){
+// function SignOut(){
 //     return(
 //         <form 
 //         action={async()=>{

@@ -4,6 +4,9 @@ import {prisma} from "@/prisma/prisma"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { PrismaClient } from "@prisma/client"
 import GitHub from "next-auth/providers/github"
+import Google from "next-auth/providers/google"
+import Yandex from "next-auth/providers/yandex"
+import Vk from "next-auth/providers/vk"
 
 const prismaDB = new PrismaClient();
 
@@ -12,9 +15,12 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
     adapter: PrismaAdapter(prisma),
     session: {strategy: "jwt"},
     providers:[
+        Google,
+        Vk,
+        Yandex,
         GitHub({
-            clientId: process.env.GITHUB_ID,
-            clientSecret: process.env.GITHUB_SECRET,
+            clientId: process.env.AUTH_GITHUB_ID,
+            clientSecret: process.env.AUTH_GITHUB_SECRET,
           }),
           CredentialsProvider({
             // The name to display on the sign in form (e.g. 'Sign in with...')
