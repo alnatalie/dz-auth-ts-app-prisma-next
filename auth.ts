@@ -16,14 +16,8 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
     session: {strategy: "jwt"},
     providers:[
         Google,
-        Vk({
-          clientId: process.env.AUTH_VK_ID,
-            clientSecret: process.env.AUTH_VK_SECRET,
-        }),
-        Yandex({
-          clientId: process.env.AUTH_YANDEX_ID,
-            clientSecret: process.env.AUTH_YANDEX_SECRET,
-        }),
+        Vk,
+        Yandex,
         GitHub({
             clientId: process.env.AUTH_GITHUB_ID,
             clientSecret: process.env.AUTH_GITHUB_SECRET,
