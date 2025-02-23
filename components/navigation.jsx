@@ -4,7 +4,9 @@ import Link from "next/link"
 const pages = [
     {href:'/', title: 'Home'},
     {href:'/pages-router', title: 'Page router'},
-    {href:'/custom', title: 'Custom router'},
+    // {href:'/custom', title: 'Custom router'},
+    {href:'/account', title: 'My account(app)'},
+    {href:'/pages-router/account', title: 'My account(page)'},
 ]
 
 export function Navigation(){
