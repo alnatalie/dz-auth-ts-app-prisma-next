@@ -17,7 +17,10 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
     providers:[
         Google,
         Vk,
-        Yandex,
+        Yandex({
+          clientId: process.env.AUTH_YANDEX_ID,
+            clientSecret: process.env.AUTH_YANDEX_SECRET,
+        }),
         GitHub({
             clientId: process.env.AUTH_GITHUB_ID,
             clientSecret: process.env.AUTH_GITHUB_SECRET,
