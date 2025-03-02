@@ -4,8 +4,8 @@ import { ServerSession } from "@/components/my-account";
 
 export default async function Page(){
     const 
-        responce = await fetch('http://localhost:3000//api/myaccount'),
-        obj = await responce.json(),
+        // responce = await fetch('http://localhost:3000//api/myaccount'),
+        // obj = await responce.json(),
         session = await auth();
 
 
@@ -15,7 +15,7 @@ export default async function Page(){
     <hr />
     server session = <ServerSession/>
     <hr />
-    fetch from RSC result = {JSON.stringify(obj)}
+    {/* fetch from RSC result = {JSON.stringify(obj)} */}
     
     </>
 }
