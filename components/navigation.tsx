@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { ReactNode } from "react"
 
 
 const pages = [
@@ -18,7 +19,8 @@ const pages = [
    
 ]
 
-export function Navigation(){
+
+export function Navigation({children}: {children:ReactNode}){
     return <nav>
         <ul>
             {pages.map(({href,title})=> <li key={href}>
@@ -27,5 +29,6 @@ export function Navigation(){
                 </Link>
             </li>)}
         </ul>
+        {children}
     </nav>
 }
