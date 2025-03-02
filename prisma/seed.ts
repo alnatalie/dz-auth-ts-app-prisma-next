@@ -1,27 +1,57 @@
 
-import { type User, Busket, Buyers, PrismaClient } from "@prisma/client";
+import { type User, Buyers, Categories, Materials, PrismaClient } from "@prisma/client";
 
 
 const prisma = new PrismaClient();
 
-
-
-async function createBusket(){
-    const data:Busket[] = [
-        {id: 1, byerId: 1, open: false },
-        {id: 2, byerId: 2, open: false} 
+async function createMaterials() {
+    const data:Materials[] = [
+        {id: 1, name: "Золото" },
+        {id: 2, name: "Серебро" },
+        {id: 3, name: "Бижутерия" },
     ]
-    return await prisma.busket.createMany({
+    return await prisma.materials.createMany({
         data
     });
-   
-   
+    
 }
+
+async function createCategories() {
+    const data:Categories[] = [
+        {id: 1, nameCategory: "Серьги" },
+        {id: 2, nameCategory: "Кольцо" },
+        {id: 3, nameCategory: "Ожерелье" },
+        {id: 4, nameCategory: "Моносерьга" },
+        {id: 5, nameCategory: "Кулон" },
+        {id: 6, nameCategory: "Браслет" },
+    ]
+    return await prisma.categories.createMany({
+        data
+    });
+    
+}
+
+main();
 
 async function createByuers(){
     const data: Buyers[] = [
-        {id:1, name: 'Анастасия', email: 'nastya111@mail.ru', phone:89135473219,address:'', price:1990,  },
-        {id:2, name: 'Мария', email: 'mary.ivanova@mail.ru', phone:89995893410,address:'', price:7840,  },
+        {id:1, 
+            name: 'Анастасия', 
+            email: 'nastya111@mail.ru', phone:'89135473219',
+            sity:'Москва', 
+            address:'улица Ленина, 7' },
+        {id:2, 
+            name: 'Мария', 
+            email: 'mary.ivanova@mail.ru', phone:'89995893410',sity:'Новосибирск', address:'проспек Димитрова 32'},
+        {id:3, 
+            name: 'Михаил', 
+            email: 'mihail111@gmail.com', phone:"89993219900",sity:"Красноярск", 
+            address:"улица Мира, 43"},
+        {id:4, 
+            name: 'Кристина', 
+            email: 'kris98@mail.ru', phone:"89532227819",
+            sity:"Казань", 
+            address:"улица Серафимовича,20"}
          
     ]
     return await prisma.buyers.createMany({
@@ -46,14 +76,13 @@ async function createUsers(){
 async function main() {
     try {
         const 
-            byers = await createByuers(),
-            busket = await createBusket(),
-            // productsInBusket = await createProductsInBusket(),
-            // products = await createProducts(),
-            // types = await createTypes(),
-            // material = await createMaterial(),
+            buyers = await createByuers(),
+            categories = await createCategories(),
+            material = await createMaterials(),
             users = await createUsers();
-        // console.log({orders, byers, users});
+            // busket = await createBusket(),
+            // products = await createProducts(),
+        console.log({buyers, categories, material, users});
         
     } catch (error) {
       console.log('Error', error);

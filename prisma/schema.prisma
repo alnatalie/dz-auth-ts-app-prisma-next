@@ -13,79 +13,83 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Material {
+model Materials {
   id           Int        @id @default(autoincrement())
-  typeMaterial String
+  name String
   Products     Products[]
 }
 
 model Sizes {
   id           Int            @id @default(autoincrement())
   value        String
-  ProductSizes ProductSizes[]
+  Products     Products[]
+  // ProductSizes ProductSizes[]
 }
 
-model ProductSizes {
-  id        Int      @id @default(autoincrement())
-  productId Int
-  Product   Products @relation(fields: [productId], references: [id])
-  sizeId    Int
-  Size      Sizes    @relation(fields: [sizeId], references: [id])
-}
+// model ProductSizes {
+//   id        Int      @id @default(autoincrement())
+//   productId Int
+//   Product   Products @relation(fields: [productId], references: [id])
+//   sizeId    Int
+//   Size      Sizes    @relation(fields: [sizeId], references: [id])
+// }
 
-model Types {
+model Categories {
   id       Int        @id @default(autoincrement())
-  typeName String
+  nameCategory String
   Products Products[]
-}
-
-model Products {
-  id               Int                @id @default(autoincrement())
-  name             String
-  typeId           Int
-  Type             Types              @relation(fields: [typeId], references: [id])
-  materialId       Int
-  Material         Material           @relation(fields: [materialId], references: [id])
-  ProductsInBusket ProductsInBusket[]
-  price            String
-  OrderItems       OrderItems[]
-  ProductSizes ProductSizes[]
 }
 
 model Buyers {
   id      Int      @id @default(autoincrement())
   name    String
   email   String
-  phone   Int
+  phone   String
+  sity    String
   address String
-  price   Int
-  Busket  Busket[]
+  // Busket  Busket[]
   Order   Orders[]
 }
 
-model ProductsInBusket {
-  id        Int      @id @default(autoincrement())
-  productId Int
-  Product   Products @relation(fields: [productId], references: [id])
-  quantity  Int
-  busketId  Int
-  Busket    Busket   @relation(fields: [busketId], references: [id])
+model Products {
+  id               Int                @id @default(autoincrement())
+  name             String
+  categoriesId           Int
+  Categories             Categories              @relation(fields: [categoriesId], references: [id])
+  price            String
+  materialsId       Int
+  Material         Materials           @relation(fields: [materialsId],references: [id])
+  sizeId Int
+  Size Sizes @relation(fields: [sizeId], references: [id])
+  OrderItems       OrderItems[]
+  // ProductSizes ProductSizes[]
+  // ProductsInBusket ProductsInBusket[]
 }
 
-model Busket {
-  id               Int                @id @default(autoincrement())
-  byerId           Int
-  Buyer            Buyers             @relation(fields: [byerId], references: [id])
-  open             Boolean
-  ProductsInBusket ProductsInBusket[]
-}
+
+// model ProductsInBusket {
+//   id        Int      @id @default(autoincrement())
+//   productId Int
+//   Product   Products @relation(fields: [productId], references: [id])
+//   quantity  Int
+//   busketId  Int
+//   Busket    Busket   @relation(fields: [busketId], references: [id])
+// }
+
+// model Busket {
+//   id               Int                @id @default(autoincrement())
+//   byerId           Int
+//   Buyer            Buyers             @relation(fields: [byerId], references: [id])
+//   open             Boolean
+//   ProductsInBusket ProductsInBusket[]
+// }
 
 model Orders {
   id          Int          @id @default(autoincrement())
   byerId      Int
   Buyer       Buyers       @relation(fields: [byerId], references: [id])
-  date        DateTime
   totalAmount String
+  date        DateTime
   OrderItems  OrderItems[]
 }
 
@@ -96,6 +100,7 @@ model OrderItems {
   productId Int
   ProductId Products @relation(fields: [productId], references: [id])
   price     String
+  quantity String
 }
 
 // -----------------------------------------------------------------------------------
