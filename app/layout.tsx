@@ -1,5 +1,7 @@
+import '@/global.css'
 import type { Metadata } from "next";
 import { Header } from "@/components/header";
+import { ServerComponentAccountButton } from "@/components/account-button-server";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,7 +16,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={``}>
-        <Header/>
+        <Header>
+          <ServerComponentAccountButton/>
+         </Header>
         <main>
           <h1>⚡️App Router</h1>
         {children}
